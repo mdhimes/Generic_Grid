@@ -82,7 +82,7 @@ def gg_rescale(model_dir, model_file, rs, rp, gp, tp):
 
 
 if __name__ == '__main__':
-	model_dir = '../Data/'
+	model_dir = './Data'
 	model_file = 'trans-iso-generic_1500_05_+0.0_0001_0.00_model.txt'
 	rs = 0.900 # Rstar
 	rp = 1.200 # RJ
@@ -90,7 +90,7 @@ if __name__ == '__main__':
 	tp = 1500 # K
 
 
-	result = gg_rescale(model_dir, model_file, rs, rp, gp, tp)
+	wav, rprs = gg_rescale(model_dir, model_file, rs, rp, gp, tp)
 
 
 
