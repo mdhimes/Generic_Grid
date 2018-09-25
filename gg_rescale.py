@@ -12,9 +12,9 @@ def gg_rescale(model_dir, model_file, rs, rp, gp, tp):
 
 	INPUTS:
 	dir = string for the directory containing the file you want to scale
-		e.g. '/Users/name/Documents/Generic_Goyal_Grid/rainout/'
+		e.g. '/Users/name/Documents/Generic_Goyal_Grid/Rainout_condensation/'
 	file = string of the model name you want to run the input file should be selected such that it is closest to the gravity and temperature for the planet
-		e.g. trans-iso-generic_1500_05_+0.0_0001_0.00_model.txt'
+		e.g. trans-iso-generic_1500_05_+0.0_0.56_0001_0.00_model.txt'
 	rs = radius of the star in solar radii
 	rp = radius of the planet in jupiter radii
 	gp = gravity of the planet in cgs units
