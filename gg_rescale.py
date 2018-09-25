@@ -22,12 +22,12 @@ def gg_rescale(model_dir, model_file, rs, rp, gp, tp):
 
 	OUTPUTS:
 	wav = wavlength array for the model (microns)
-	rprs = (Rp/R*)^2 model
+	depth = (Rp/R*)^2 model
 	"""
 
 
 	# SET UP THE CONSTANTS
-	kb = 1.380658E-16 # gm*cm^2/s^2 * Kel
+	kb = 1.380658E-16 # gm*cm^2/s^2 * Kelvin
 	mu = 1.6726E-24 * 2.3 #g  cgs  Hydrogen + Helium Atmosphere
 	tau = 0.56 # optical depth
 	rsun = 69580000000. # cm
@@ -63,10 +63,10 @@ def gg_rescale(model_dir, model_file, rs, rp, gp, tp):
 	wav = model_wav[srt]
 	r2 = r2[srt]
 
-	rprs = (r2 / rstar)**2.
+	depth = (r2 / rstar)**2.
 
 # These are the OUTPUTS
-	return wav, rprs
+	return wav, depth
 
 
 
@@ -83,7 +83,7 @@ def gg_rescale(model_dir, model_file, rs, rp, gp, tp):
 
 if __name__ == '__main__':
 	model_dir = './Data'
-	model_file = 'trans-iso-generic_1500_05_+0.0_0001_0.00_model.txt'
+	model_file = 'trans-iso-generic_1500_05_+0.0_0.56_0001_0.00_model.txt'
 	rs = 0.900 # Rstar
 	rp = 1.200 # RJ
 	gp = 1000.0 # cgs
