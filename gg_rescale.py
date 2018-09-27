@@ -1,6 +1,7 @@
 # ggg_rescale.py
 import numpy as np 
 import os
+import matplotlib.pyplot as plt
 
 def gg_rescale(model_dir, model_file, rs, rp, gp, tp):
 
@@ -30,32 +31,38 @@ def gg_rescale(model_dir, model_file, rs, rp, gp, tp):
 	kb = 1.380658E-16 # gm*cm^2/s^2 * Kelvin
 	mu = 1.6726E-24 * 2.3 #g  cgs  Hydrogen + Helium Atmosphere
 	tau = 0.56 # optical depth
-	rsun = 69580000000. # cm
-	rjup = 6991100000. # cm
+	rsun = 69580000000 # cm
+	rjup = 6991100000 # cm
 
 	# Read in the file from the directory specified by the user
 	# define the columns of data from the file read in 
 	model_filename = os.path.join(model_dir,model_file)
 	print(model_filename)
 
-	model_wav, model_rprs = np.loadtxt(model_filename, unpack=True)
+	model_wav, model_rp = np.loadtxt(model_filename, unpack=True)
+
+	model_rprs = np.sqrt(model_rp) * (rp/rs)
+
+	rstar = rs * rsun
+	rpl = rp * rjup
+	rp2 = rpl
 
 	# Extract the starting temperature and gravity from the input filename
 	t1 = float(model_file.split('_')[1])
 	g1 = float(model_file.split('_')[2])
+	g1 = g1*1e2 #rescaled to cm
 
 	# Calculate the transmission spectrum based on the file parameters
 	#	 to get the baseline radius
 	h1 = (kb * t1) / (mu * g1)
-	rp1 = np.sqrt(model_rprs) * rsun #cm
-	z1 = (np.sqrt(model_rprs) * (rsun)) - (np.sqrt(model_rprs[-5]) * (rsun)) #cm
-	epsig1 = tau * np.sqrt(kb * t1 * mu * g1 / (2. * np.pi * rp1)) * np.exp(z1 / h1)
+	rp1 = np.sqrt(model_rp) * rsun #cm
+	z1 = rp1 - (np.sqrt(model_rp[2000])*rsun) #cm
+	epsig1 = tau * np.sqrt((kb * t1 * mu * g1) / (2. * np.pi * rp1)) * np.exp(z1 / h1)
 
 	# Rescale based on the input parameters
-	rp2 = rp
-	rstar = rs
+
 	h2 = (kb * tp) / (mu * gp)
-	z2 = h2 * np.log(epsig1 / tau * np.sqrt(2. * np.pi * rp2 / (kb * tp * mu * gp)))
+	z2 = h2 * np.log(epsig1 / tau * np.sqrt((2. * np.pi * rp2)/(kb * tp * mu * gp)))
 	r2 = z2 + rp2
 
 # Resort the data so it goes from lowest wavelength to highest
@@ -63,7 +70,7 @@ def gg_rescale(model_dir, model_file, rs, rp, gp, tp):
 	wav = model_wav[srt]
 	r2 = r2[srt]
 
-	depth = (r2 / rstar)**2.
+	depth = (r2 / rstar)**2
 
 # These are the OUTPUTS
 	return wav, depth
@@ -83,18 +90,24 @@ def gg_rescale(model_dir, model_file, rs, rp, gp, tp):
 
 if __name__ == '__main__':
 	model_dir = './Data'
-	model_file = 'trans-iso-generic_1500_05_+0.0_0.56_0001_0.00_model.txt'
-	rs = 0.900 # Rstar
+	model_file = 'trans-iso-generic_0400_05_+0.0_0.35_0001_0.06_model.txt'
+	# model_file = 'trans-iso-generic_1500_05_+0.0_0.56_0001_0.00_model.txt'
+	rs = 1.100 # Rstar
 	rp = 1.200 # RJ
-	gp = 1000.0 # cgs
-	tp = 1500 # K
+	gp = 610 # cgs
+	tp = 450 # K
 
-
+	# result = gg_rescale(model_dir, model_file, rs, rp, gp, tp)
+	# This will give you a tuple with wavelength and transit depth.
+	# Or do the following to put them into your own arrays
 	wav, rprs = gg_rescale(model_dir, model_file, rs, rp, gp, tp)
 
 
-
-
+	plt.plot(wav, rprs)
+	plt.xlim(0.3,15)
+	plt.xscale('log')
+	plt.tight_layout()
+	plt.show()
 
 
 
