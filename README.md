@@ -1,6 +1,8 @@
 # Generic_Grid
-Scaling function for the generic ATMO grid presented in Goyal, J., et al., 2018b, MNRAS, accepted for publication October 30th 2018
+Scaling function for the generic ATMO grid presented in Goyal, J., et al., 2018b, MNRAS, accepted for publication October 30th 2018.
+
 The full grid of models can be found at https://drive.google.com/drive/folders/1rx1PjEQxIPn7GurJnbwohJ3ZAEVeJ_rT?usp=sharing
+
 The data folder contains example models for this function. The name structure is kept consistent between models for better reading.
 
 	gg_rescale
