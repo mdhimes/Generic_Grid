@@ -1,6 +1,6 @@
 # Generic_Grid
-Scaling function for the generic ATMO grid presented in Goyal et al. (2018b). 
-	"""
+Scaling function for the generic ATMO grid presented in Goyal, J., et al., 2018b, MNRAS, accepted for publication October 30th 2018
+	
 	gg_rescale
 	This function will take a single Generic ATMO Grid file and scale it 
 	with an input planetary system radii, gravity and temperature. 
@@ -21,4 +21,4 @@ Scaling function for the generic ATMO grid presented in Goyal et al. (2018b).
 	OUTPUTS:
 	wav = wavlength array for the model (microns)
 	rprs = (Rp/R*)^2 model
-	"""
+	
