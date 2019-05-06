@@ -14,15 +14,14 @@ The data folder contains example models for this function. The name structure is
 	dir = string for the directory containing the file you want to scale
 		e.g. '/Users/name/Documents/Generic_Goyal_Grid/Rainout_condensation/'
 	file = string of the model name you want to run the input file should be selected such that it is closest to the gravity and temperature for the planet
-		e.g. trans-iso-generic_1500_05_+0.0_0.56_0001_0.00_model.txt' 
-		where the file naming convention is trans-iso-generic_temperature_gravity_metallicity_CtoO_haze_cloud_model.txt
-
-	rs = radius of the star in solar radii
-	rp = radius of the planet in jupiter radii
-	gp = gravity of the planet in cgs units
-	tp = temperature of the planet in K
-
+		e.g. trans-iso-generic_1500_05_+0.0_0.56_0001_0.00_model.txt'
+	radius_star = radius of the star in solar radii
+	radius_planet = radius of the planet in jupiter radii
+	gravity_planet = gravity of the planet in cgs units
+	temperature_planet = temperature of the planet in K
+	mean_molecular_weight = scale factor for the atmospheric mean molecular weight. This will be multiplied by the mass of a proton and used to calculate the planetary scale height. The default is set to 2.3 for H/He-dominated atmosphere.
+	
 	OUTPUTS:
-	wav = wavlength array for the model (microns)
-	rprs = (Rp/R*)^2 model
+	model_wavelength = wavlength array for the model (microns)
+	transit_depth = (Rp/R*)^2 model
 	
