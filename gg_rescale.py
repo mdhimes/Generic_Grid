@@ -28,11 +28,13 @@ def gg_rescale(model_dir, model_file, radius_star, radius_planet, gravity_planet
 	model_wavelength = wavlength array for the model (microns)
 	transit_depth = (Rp/R*)^2 model
 	"""
-
+    # from the documentation in the full grid:
+    #    (use mean_mol_weight = 2.3, 2.5, 3.2, 4.0 and 5.5 for models closest to 1, 10, 50, 100 and 200 times solar metallicity models, respectively.) 
+	mus = {'-1.0' : 2.3, '+0.0' : 2.3, '+1.0' : 2.5, '+1.7' : 3.2, '+2.0' : 4.0, '+2.3' : 5.5}
 
 	# SET UP THE CONSTANTS
 	kb = 1.380658E-16 # gm*cm^2/s^2 * Kelvin
-	mu_model = 1.6726E-24 * 2.3 #g  cgs  Hydrogen + Helium Atmosphere
+	mu_model = 1.6726E-24 * mus[model_file.split('_')[3]] #g  cgs  Hydrogen + Helium Atmosphere
 	mu_planet = 1.6726E-24 * mean_molecular_weight #g  cgs rescaled atmospheric mean molecular weight
 	tau = 0.56 # optical depth
 	rsun = 69580000000 # cm
