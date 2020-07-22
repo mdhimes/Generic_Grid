@@ -58,9 +58,10 @@ def gg_rescale(model_dir, model_file, radius_star, radius_planet, gravity_planet
 
 	# Calculate the transmission spectrum based on the file parameters
 	#	 to get the baseline radius
-	h1 = (kb * temperature_model) / (mu_model * gravity_model) # Calculate the scale height of the model atmosphere
-	rp1 = np.sqrt(model_rp) * rsun #cm
-	z1 = rp1 - (np.sqrt(model_rp[2000])*rsun) #cm
+	h1  = (kb * temperature_model) / (mu_model * gravity_model) # Calculate the scale height of the model atmosphere
+	r1  = np.sqrt(model_rp) * rsun #cm - observed radius
+	rp1 = rjup #cm - models use Rp = Rjup for bulk radius
+	z1  = r1 - rp1 #cm
 	epsig1 = tau * np.sqrt((kb * temperature_model * mu_model * gravity_model) / (2. * np.pi * rp1)) * np.exp(z1 / h1)
 
 	# Rescale the model atmosphere based on the input parameters
