@@ -198,6 +198,7 @@ def gg_rescale_plus(model_dir, radius_star, radius_planet, gravity_planet, tempe
 		ih2 = np.argmin(np.abs(np.delete(hazes, ih) - haze_planet))
 		if ih <= ih2:
 			ih2 += 1
+		ih2 = [ih2]
 	else:
 		ih2 = []
 	ih = [ih]
@@ -220,16 +221,23 @@ def gg_rescale_plus(model_dir, radius_star, radius_planet, gravity_planet, tempe
                                               ir+ir2, 
                                               ih+ih2, 
                                               ic+ic2):
-		fmodel = 'trans-iso-generic_'+temps_str[T]+'_'+gravs_str[g]+'_'+logZs_str[Z]+'_'+CtoOs_str[r]+\
+		try:
+			fmodel = 'trans-iso-generic_'+temps_str[T]+'_'+gravs_str[g]+'_'+logZs_str[Z]+'_'+CtoOs_str[r]+\
                  '_'+hazes_str[h]+'_'+cloud_str[c]+'_model.txt'
+		except:
+			print(T, g, Z, r, h, c)
+			print(len(temps_str), len(gravs_str), len(logZs_str), len(CtoOs_str), len(hazes_str), len(cloud_str))
+			print(ih)
+			print(ih2)
+			print(hazes_str)
+			print(haze_planet)
+			sys.exit()
 		model_file = fmodel
 		model_filename = os.path.join(model_dir, fmodel)
 		fmodels.append(model_filename)
 
 		# Read in the file from the directory specified by the user
 		# define the columns of data from the file read in 
-		print(model_filename)
-
 		model_wav, model_rp = np.loadtxt(model_filename, unpack=True)
 
 		model_rprs = np.sqrt(model_rp) * (radius_planet/radius_star)
