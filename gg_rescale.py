@@ -84,7 +84,7 @@ def gg_rescale(model_dir, model_file, radius_star, radius_planet, gravity_planet
 	return model_wavelength, transit_depth
 
 
-def gg_rescale_plus(model_dir, radius_star, radius_planet, gravity_planet, temperature_planet, mean_molecular_weight, C_to_O_planet, haze_planet, cloud_planet, powabunga='nparam'):
+def gg_rescale_plus(model_dir, radius_star, radius_planet, gravity_planet, temperature_planet, mean_molecular_weight, C_to_O_planet, haze_planet, cloud_planet, powabunga=6):
 	"""
 	gg_rescale_plus
 	This function takes a directory with the ATMO grid files, and some desired planetary parameters.
@@ -102,7 +102,7 @@ def gg_rescale_plus(model_dir, radius_star, radius_planet, gravity_planet, tempe
 	haze_planet = planetary haze parameter
 	cloud_planet = planetary cloud parameter
 	powabunga = inverse-distance weighting exponent. Weight is 1/dist**powabunga.
-				the default, 'nparam', sets this exponent to the number of parameters. Good for high-dimensional spaces.
+				the default, 6, sets this exponent to the number of grid parameters.
 
 	OUTPUTS:
 	model_wavelength = wavlength array for the model (microns)
@@ -281,8 +281,6 @@ def gg_rescale_plus(model_dir, radius_star, radius_planet, gravity_planet, tempe
 		specs = np.asarray(specs)
 		dists = np.asarray(dists)
 		transit_depth = 0
-		if powabunga == 'nparam':
-			powabunga = 6 # temp, grav, logZ, C/O, haze, cloud
 		# normalize the weights
 		weights = (1./dists**powabunga) / np.sum(1./dists**powabunga)
 		if np.sum(weights) - 1 >= 1e-7:
